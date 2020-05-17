@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');//Transforme le corp de la requette en JSON (objet utilisable)
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
+const app = express();
+
 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
@@ -29,5 +32,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/sauce', sauceRoutes);
 app.use('/api/auth', userRoutes);
+
+app.use(cors());
 
 module.exports = app;

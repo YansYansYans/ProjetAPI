@@ -1,5 +1,6 @@
 const Sauce = require('../models/sauce');
-
+const fs = require('fs');//Importation FS 
+const regex = /[a-zA-Z]/;
 
 // Ajouter une sauce (Utilisateur)
 exports.addSauce = (req, res) => {
@@ -10,7 +11,7 @@ exports.addSauce = (req, res) => {
         delete sauceObject._id;
         const sauce = new Sauce({
             ...sauceObject,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,//Genere le protocole de l'image
             likes: 0,
             dislikes: 0,
             usersLiked: [],
