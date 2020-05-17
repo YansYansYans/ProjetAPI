@@ -1,19 +1,19 @@
 const Sauce = require('../models/sauce');
 const fs = require('fs');//Importation FS 
-const regex = /[a-zA-Z]/;
+const regex = /[a-zA-Z]/;//Importation de REGEX pour l'addresse mail
 
 // Ajouter une sauce (Utilisateur)
 exports.addSauce = (req, res) => {
     const sauceObject = JSON.parse(req.body.sauce);
     if (!regex.test(sauceObject.name, sauceObject.manufacturer, sauceObject.description, sauceObject.mainPepper)) {
-        res.status(401).json();
+        res.status(401).json();//Crée les champs à remplir
     } else {
         delete sauceObject._id;
         const sauce = new Sauce({
             ...sauceObject,
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,//Genere le protocole de l'image
-            likes: 0,
-            dislikes: 0,
+            likes: 0,//Crée la sauce avec 0 like à l'origine
+            dislikes: 0,//Crée la sauce avec 0 dislike à l'origine
             usersLiked: [],
             usersdisLiked: []
         });
@@ -30,7 +30,7 @@ exports.modifSauce = (req, res) => {
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : {...req.body };
     if (!regex.test(sauceObject.name, sauceObject.manufacturer, sauceObject.description, sauceObject.mainPepper)) {
-        res.status(401).json();
+        res.status(401).json();//Affiche les champs a modifier
     } else {
         Sauce.updateOne({ _id: req.params.id }, {...sauceObject, _id: req.params.id })
             .then(

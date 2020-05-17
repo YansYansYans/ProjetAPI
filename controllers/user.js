@@ -1,9 +1,9 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');//Fonction de hachage 
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const email_regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;//Fonction REGEX
 //S'inscrire
 exports.signup = (req, res, next) => {
     const email = req.body.email;
@@ -13,8 +13,8 @@ exports.signup = (req, res, next) => {
         return res.status(400).json({ message: 'Email invalide' });
     } else {
         const count = password.length;
-        if (count >= 8) {
-            bcrypt.hash(password, 10)
+        if (count >= 8) {//Ordonne 8 carractère minimaux pour le mot de passe sinon refusé
+            bcrypt.hash(password, 10)//Hache le mdp 10 fois
                 .then(hash => {
                     const user = new User({
                         email: email,
@@ -38,7 +38,7 @@ exports.login = (req, res, next) => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !' });
             }
-            bcrypt.compare(req.body.password, user.password)
+            bcrypt.compare(req.body.password, user.password)//Bcrypt compare le mdp de connexion et celui d'inscription
                 .then(valid => {
                     if (!valid) {
                         return res.status(401).json({ message: 'Mot de passe incorrect !' });

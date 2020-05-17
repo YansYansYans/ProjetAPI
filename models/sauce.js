@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose');//Importe mongoose
 
-const sauceSchema = mongoose.Schema({
+const sauceSchema = mongoose.Schema({//Création de l'objet Sauce
     name: { type: String, required: true },
     manufacturer: { type: String, required: true },
     description: { type: String, required: true },

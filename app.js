@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');//Transforme le corp de la requette en JSON (objet utilisable)
 const mongoose = require('mongoose');
 const path = require('path');
-const cors = require('cors');
+const cors = require('cors');//Installation de CORS 
 
 
 const sauceRoutes = require('./routes/sauce');
@@ -21,7 +21,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));//Image (IMPORTANT)
 
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);

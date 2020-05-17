@@ -1,4 +1,6 @@
-const http = require('http');
+//Ce code contient le server sur le port 3000, c'est ce port que demande le front (Port 4200)
+
+const http = require('http');//Transforme Server HTTP
 const app = require('./app');
 
 const normalizePort = val => {
@@ -12,7 +14,7 @@ const normalizePort = val => {
     }
     return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');//Port 3000
 app.set('port', port);
 
 const errorHandler = error => {
