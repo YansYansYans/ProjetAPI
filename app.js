@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');//Transforme le corp de la requette en
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const app = express();
 
 
 const sauceRoutes = require('./routes/sauce');
@@ -17,22 +16,16 @@ mongoose.connect('mongodb+srv://yannis:Jemappelle95@cluster0-olomx.mongodb.net/t
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
+app.use(cors());
 
-//Ajout de HeaderWhere pour que les deux serveurs communiquent
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    next();
-});
 
 app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
-app.use(cors());
+
 
 module.exports = app;
