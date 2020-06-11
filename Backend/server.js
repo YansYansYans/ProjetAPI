@@ -14,7 +14,7 @@ const normalizePort = val => {
     }
     return false;
 };
-const port = normalizePort(process.env.PORT || '3000');//Port 3000
+const port = normalizePort(process.env.PORT || '3000');//Port 3000 par défault
 app.set('port', port);
 
 const errorHandler = error => {
@@ -37,7 +37,7 @@ const errorHandler = error => {
     }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(app);//Crée un server
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -46,6 +46,6 @@ server.on('listening', () => {
     console.log('Listening on ' + bind);
 });
 
-server.listen(port);
+server.listen(port);//On se place sur le port l.17
 
 http
